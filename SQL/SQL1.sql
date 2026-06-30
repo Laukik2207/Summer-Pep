@@ -108,3 +108,72 @@ Select * from student where city like '%a%' ORDER BY student_name ASC;
 Select * from student where cgpa between 8 and 9;
 
 Select * from student where email is not null;
+
+select count(student_id) from student;
+
+select max(attendance) from student;
+
+select count(student_id) from student where city = "Delhi";
+
+select avg(age) from student where branch = "IT";
+
+select min(cgpa) from student where branch = "CSE";
+
+select count(student_id) from student where student_name like 'a%';
+
+select sum(fees) from student where cgpa > 8.0;
+
+select avg(fees) from student where city in ('delhi','jaipur') and cgpa > 8.0;
+
+select count(student_id) from student where student_name like '%a' and age between 18 and 22;
+
+select sum(fees) from student where email is not null;
+
+select min(cgpa) from student where  student_name like 's%';
+
+select branch,avg(cgpa) from student group by branch;
+
+select branch,count(student_id) from student group by branch;
+
+select city ,count(student_id) from student group by city;
+
+select branch,max(cgpa) from student group by branch;
+
+select branch,sum(fees) from student group by branch;
+
+select branch,min(attendance) from student group by branch;
+
+select branch,avg(cgpa) from student group by branch having avg(cgpa) > 8;
+
+select city,count(student_id) from student group by city having count(student_id) > 1;
+
+select branch , sum(fees) from student group by branch having sum(fees) > 50000;
+
+select city , avg(attendance) from student group by city having avg(attendance) > 80;
+
+select branch , count(student_id) from student group by branch;
+
+select branch , avg(cgpa) from student group by branch;
+
+select city , max(attendance) from student group by city;
+
+select branch,min(fees) from student group by branch;
+
+select city , avg(cgpa) from student group by city having avg(cgpa) > 8;
+
+select city,sum(fees) from student group by city ;
+
+select branch, max(cgpa) from student group by branch;
+
+select branch , min(attendance) from student group by branch having min(attendance) < 90;
+
+select branch, sum(fees) from student group by branch limit 1;
+
+select branch , avg(attendance) from student group by branch;
+
+select city,count(student_id) from student group by city;
+
+select branch,avg(cgpa) from student group by branch having avg(cgpa) > 8;
+
+
+ 
