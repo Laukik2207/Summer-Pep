@@ -4,21 +4,23 @@ CREATE DATABASE CollegeDB;
 -- Use Database
 USE CollegeDB;
 
+DROP table student;
+
 -- Create Student Table
 CREATE TABLE student (
-    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT PRIMARY KEY,
     student_name VARCHAR(100) NOT NULL,
-    age INT,
+    age INT check(age>=18),
     gender ENUM('Male', 'Female', 'Other'),
-    branch VARCHAR(50),
-    semester INT,
-    cgpa DECIMAL(3,2),
-    city VARCHAR(50),
+    branch VARCHAR(50)NOT NULL,
+    semester INT CHECK(semester BETWEEN 1 AND 8),
+    cgpa DECIMAL(3,2) CHECK(cgpa between 0 and 10),
+    city VARCHAR(50) default 'Delhi',
     email VARCHAR(100) UNIQUE,
     phone_no VARCHAR(15) UNIQUE,
     admission_date DATE,
-    fees DECIMAL(10,2),
-    attendance DECIMAL(5,2)
+    fees DECIMAL(10,2) check(fees > 0),
+    attendance DECIMAL(5,2) CHECK(attendance between 0 and 100)
 );
 
 select * from student;
@@ -175,5 +177,85 @@ select city,count(student_id) from student group by city;
 
 select branch,avg(cgpa) from student group by branch having avg(cgpa) > 8;
 
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+	(124,'Raghav Sharma',22,'Male','CSE',7,8.75,"",'raghav.sharma@gmail.com','0623581479','2024-08-01',85000.00,91.50),
+    (125,'Raghav Sharma',20,'Male','IT',4,7.80,"Mumbai",'raghav.sharma25@gmail.com','0623581445','2025-08-01',85000.00,85.00);
 
- 
+
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+(
+	126,'vivek Sharma',20,'Male','CSE',5,8.75,'Delhi','vivek.sharma@gmail.com','0623181469','2024-08-01',85000.00,91.50
+);
+INSERT INTO student
+(
+    student_id, student_name, age, gender, branch, semester, cgpa,
+    city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+(127,'Aman Yadav',18,'Male','CSE',1,6.12,'Noida','aman127@gmail.com','9876500011','2025-08-01',85000,61.40),
+
+(128,'Pooja Sharma',21,'Female','IT',6,9.76,'Delhi','pooja128@gmail.com','9876500012','2022-08-01',79500,99.10),
+
+(129,'Harsh Patel',23,'Male','ECE',8,7.18,'Ahmedabad','harsh129@gmail.com','9876500013','2021-08-01',88000,73.60),
+
+(130,'Simran Kaur',20,'Female','Mechanical',4,8.02,'Amritsar','simran130@gmail.com','9876500014','2024-01-15',76500,84.20),
+
+(131,'Mohit Jain',22,'Male','Civil',7,5.94,'Indore','mohit131@gmail.com','9876500015','2022-08-01',72000,57.90),
+
+(132,'Kavya Nair',19,'Female','EEE',2,9.41,'Kochi','kavya132@gmail.com','9876500016','2025-01-15',81500,96.70),
+
+(133,'Arjun Malhotra',24,'Male','MBA',3,8.28,'Gurgaon','arjun133@gmail.com','9876500017','2024-08-01',112000,81.50),
+
+(134,'Nikita Das',20,'Female','BCA',4,7.51,'Bhubaneswar','nikita134@gmail.com','9876500018','2024-01-15',68000,77.80),
+
+(135,'Sahil Khan',25,'Male','MCA',2,8.94,'Patna','sahil135@gmail.com','9876500019','2025-08-01',98000,90.40),
+
+(136,'Meera Iyer',18,'Female','CSE',1,9.92,'Chennai','meera136@gmail.com','9876500020','2025-08-01',85000,100.00),
+
+(137,'Yash Thakur',21,'Male','IT',5,6.58,'Bhopal','yash137@gmail.com','9876500021','2023-08-01',81000,69.30),
+
+(138,'Ritika Sinha',20,'Female','CSE',5,8.89,'Ranchi','ritika138@gmail.com','9876500022','2023-08-01',83500,93.20),
+
+(139,'Deepak Verma',22,'Male','EEE',7,5.61,'Kanpur','deepak139@gmail.com','9876500023','2022-08-01',79000,55.80),
+
+(140,'Shruti Kulkarni',21,'Female','ECE',6,9.34,'Pune','shruti140@gmail.com','9876500024','2022-08-01',86000,97.10),
+
+(141,'Akash Mishra',20,'Male','Civil',3,7.84,'Varanasi','akash141@gmail.com','9876500025','2024-08-01',70500,79.50),
+
+(142,'Tanvi Joshi',19,'Female','BCA',2,8.43,'Jaipur','tanvi142@gmail.com','9876500026','2025-01-15',69000,88.60),
+
+(143,'Nitin Chauhan',23,'Male','Mechanical',8,6.74,'Dehradun','nitin143@gmail.com','9876500027','2021-08-01',77000,64.20),
+
+(144,'Isha Arora',22,'Female','MBA',4,9.13,'Delhi','isha144@gmail.com','9876500028','2024-01-15',115000,95.80),
+
+(145,'Rohit Bansal',20,'Male','CSE',5,7.02,'Ludhiana','rohit145@gmail.com','9876500029','2023-08-01',84500,71.90),
+
+(146,'Diya Menon',21,'Female','IT',6,8.65,'Bengaluru','diya146@gmail.com','9876500030','2022-08-01',83000,92.30);
+
+select * from student;
+
+select * from student where cgpa > 8;
+
+select * from student where attendance > 75;
+
+select * from student order by fees desc limit 10;
+
+select city,count(student_id) from student group by city;
+
+select branch,avg(cgpa) from student group by branch;
+
+select branch,count(student_id) from student group by branch having count(student_id) < 30;
+
+select * from student where admission_date like "%2025%";
+
+select * from student where city in ('delhi','noida');
+
+select * from student where student_name like 'a%';
