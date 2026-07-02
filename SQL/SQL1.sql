@@ -259,3 +259,119 @@ select * from student where admission_date like "%2025%";
 select * from student where city in ('delhi','noida');
 
 select * from student where student_name like 'a%';
+
+CREATE TABLE Attendance
+(
+    student_id INT,
+    subject_code VARCHAR(10),
+    attendance_date DATE,
+
+    PRIMARY KEY(student_id, subject_code)
+);
+INSERT INTO Attendance
+(student_id, subject_code, attendance_date)
+VALUES
+(112,'CSE101','2025-07-01'),
+(113,'IT201','2025-07-01'),
+(114,'ECE301','2025-07-01'),
+(115,'CSE101','2025-07-01'),
+(116,'ME401','2025-07-01'),
+(117,'CE301','2025-07-01'),
+(118,'EEE201','2025-07-01'),
+(119,'MBA101','2025-07-01'),
+(120,'CSE202','2025-07-01'),
+(121,'BCA101','2025-07-01'),
+(122,'MCA101','2025-07-01'),
+(127,'CSE102','2025-07-01'),
+(128,'IT202','2025-07-01'),
+(129,'ECE302','2025-07-01'),
+(130,'ME402','2025-07-01');
+
+
+CREATE TABLE Enrollments
+(
+    enrollment_id INT PRIMARY KEY,
+    student_id INT,
+    course_name VARCHAR(50),
+
+    FOREIGN KEY(student_id)
+    REFERENCES student(student_id)
+);
+
+
+INSERT INTO Enrollments
+(enrollment_id, student_id, course_name)
+VALUES
+(1,112,'Database Management System'),
+(2,113,'Operating System'),
+(3,114,'Digital Electronics'),
+(4,115,'Data Structures'),
+(5,116,'Thermodynamics'),
+(6,117,'Surveying'),
+(7,118,'Power Systems'),
+(8,119,'Business Analytics'),
+(9,120,'Computer Networks'),
+(10,121,'Python Programming'),
+(11,122,'Machine Learning'),
+(12,127,'Artificial Intelligence'),
+(13,128,'Cloud Computing'),
+(14,129,'Computer Graphics'),
+(15,130,'Software Engineering');
+
+
+
+CREATE TABLE student_auto
+(
+student_id INT auto_increment primary key,
+student_name varchar(100)
+);
+
+
+INSERT INTO student_auto(student_name)
+values
+('Rahul');
+
+INSERT INTO student_auto(student_name)
+values
+('Priya');
+
+select * from student_auto;
+
+DELETE from student_auto
+where student_id = 2;
+
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+	(148,'Nikhil rajpu',22,'Male','CSE',7,8.75,"",'nikhil.sharma@gmail.com','0624581479','2024-08-01',85000.00,91.50),
+    (150,'Rahul Sharma',20,'Male','IT',4,7.80,"Mumbai",'rahul.sharma25@gmail.com','0623589445','2025-08-01',85000.00,85.00);
+
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+	(124,'Raghav Sharma',22,'Male','CSE',7,8.75,"",'raghav.sharma@gmail.com','0623581479','2024-08-01',85000.00,91.50;
+    
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+	(151,'Raghav Sharma',22,'Male','CSE',7,11,"",'raghav.sharma@gmail.com','0623581479','2024-08-01',85000.00,91.50);
+
+
+INSERT INTO student
+(
+	student_id, student_name, age, gender, branch, semester, cgpa, city, email, phone_no, admission_date, fees, attendance
+)
+VALUES
+	(151,'Raghav Sharma',22,'Male','CSE',7,8.3,"",'raghav.sharmaa@gmail.com','0523581479','2024-08-01',1000.00,91.50);
+    
+INSERT into Enrollments
+values
+(
+16,131,'Computer Graphics'
+);
