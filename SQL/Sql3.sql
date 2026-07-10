@@ -384,4 +384,197 @@ from products
  
  select  * from products where price = (select max(price) from products);
  
- select * from products where supplierid in (select supplierid from suppliers where Address = 'Delhi')
+ select * from products where supplierid in (select supplierid from suppliers where Address = 'Delhi');
+ 
+ select Upper(Customername) from customers;
+ 
+ select Lower(Customername) from customers;
+ 
+ select Customername , length(customername) from customers;
+ 
+ select concat(customername," -> ",Address) from customers;
+ 
+ select substr(customername,1,4) from customers;
+ 
+ select replace(customername,"a","*") from customers;
+ 
+ SELECT TRIM('   Database Systems   ') AS CleanedString;
+ 
+ select Upper(customername) , lower(address) from customers;
+ 
+ select substr(productname,1,3) from products;
+ 
+ select productname from products where length(productname) > 8;
+ 
+ Select concat(customername," (",address,")") from customers;
+ 
+ select replace(productname," ","_") from products;
+ 
+ select Address , length(address) from customers;
+ 
+ select substr(customername,1,1) from customers;
+ 
+ select substr(productname,1,5) from products;
+ 
+ select upper(productname) from products;
+ 
+ select suppliername , length(suppliername) from suppliers;
+ 
+ select c.customername , sum(o.quantity*p.price)
+ from customers as c
+ join orders 
+ on orders.customerid = c.CustomerID
+ join orderdetails as o
+ on o.OrderID = orders.OrderID
+ join products as p
+ on o.ProductID = p.ProductID
+ group by c.CustomerID;
+ 
+ 
+ select c.customername , count(o.orderid)
+ from customers as c
+ join orders 
+ on orders.customerid = c.CustomerID
+ join orderdetails as o
+ on o.OrderID = orders.OrderID
+ join products as p
+ on o.ProductID = p.ProductID
+ group by c.CustomerID
+ having count(o.orderid) > 2;
+ 
+ 
+ SELECT
+    s.SupplierName,
+    AVG(p.Price) AS AveragePrice
+FROM Suppliers s
+INNER JOIN Products p
+ON s.SupplierID = p.SupplierID
+GROUP BY s.SupplierID, s.SupplierName;
+
+select productname , price from products order by price desc limit 5;
+
+
+SELECT
+    p.ProductName
+FROM Products p
+LEFT JOIN OrderDetails od
+ON p.ProductID = od.ProductID
+WHERE od.ProductID IS NULL;
+
+
+SELECT
+    s.SupplierName,
+    COUNT(p.ProductID) AS NumberOfProducts
+FROM Suppliers s
+INNER JOIN Products p
+ON s.SupplierID = p.SupplierID
+GROUP BY s.SupplierID, s.SupplierName;
+
+
+SELECT
+c.CustomerName,
+COUNT(DISTINCT p.SupplierID) AS NumberOfSuppliers
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+ON o.OrderID = od.OrderID
+INNER JOIN Products p
+ON od.ProductID = p.ProductID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING COUNT(DISTINCT p.SupplierID) > 1;
+
+
+
+SELECT
+    p.ProductName,
+    od.Quantity
+FROM Products p
+INNER JOIN OrderDetails od
+ON p.ProductID = od.ProductID
+WHERE od.Quantity = (
+    SELECT MAX(Quantity)
+    FROM OrderDetails
+);
+
+
+
+SELECT
+    SUBSTRING(ProductName, 1, 3) AS FirstThreeCharacters,
+    ProductName,
+    Price
+FROM Products
+WHERE Price > (
+    SELECT AVG(Price)
+    FROM Products
+);
+
+
+SELECT
+UPPER(c.CustomerName) AS CustomerName,
+SUM(od.Quantity * p.Price) AS TotalPurchaseAmount
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+ON o.OrderID = od.OrderID
+INNER JOIN Products p
+ON od.ProductID = p.ProductID
+GROUP BY c.CustomerID, c.CustomerName
+ORDER BY TotalPurchaseAmount DESC;
+
+SELECT
+    c.CustomerName,
+    SUM(od.Quantity * p.Price) AS TotalPurchaseAmount
+FROM Customers c
+INNER JOIN Orders o
+    ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+    ON o.OrderID = od.OrderID
+INNER JOIN Products p
+    ON od.ProductID = p.ProductID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING SUM(od.Quantity * p.Price) > (
+    SELECT AVG(TotalAmount)
+    FROM (
+        SELECT
+            SUM(od.Quantity * p.Price) AS TotalAmount
+        FROM Orders o
+        INNER JOIN OrderDetails od
+            ON o.OrderID = od.OrderID
+        INNER JOIN Products p
+            ON od.ProductID = p.ProductID
+        GROUP BY o.CustomerID
+    ) AS AvgPurchase
+);
+
+
+SELECT DISTINCT
+    s.SupplierName
+FROM Suppliers s
+INNER JOIN Products p
+ON s.SupplierID = p.SupplierID
+LEFT JOIN OrderDetails od
+    ON p.ProductID = od.ProductID
+WHERE od.ProductID IS NULL;
+
+
+
+SELECT
+    c.CustomerName,
+    COUNT(o.OrderID) AS NumberOfOrders
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING COUNT(o.OrderID) = (
+    SELECT MAX(OrderCount)
+    FROM (
+        SELECT COUNT(OrderID) AS OrderCount
+        FROM Orders
+        GROUP BY CustomerID
+    ) AS MaxOrders
+);
+
+
+
