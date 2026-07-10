@@ -255,3 +255,133 @@ from products as p
 inner join suppliers as s
 on p.SupplierID = s.SupplierID
 order by s.SupplierName ASC;
+
+select o.orderid , p.productname , o.quantity , p.price
+from orderdetails as o
+Inner join products as p
+on o.ProductID = p.ProductID;
+
+SELECT
+    c.CustomerName,
+    p.ProductName,
+    od.Quantity
+FROM Customers c
+INNER JOIN Orders o
+    ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+    ON o.OrderID = od.OrderID
+INNER JOIN Products p
+    ON od.ProductID = p.ProductID
+ORDER BY c.CustomerName;
+
+
+select p.productname , s.suppliername
+from products as p
+Inner join suppliers as s
+on p.SupplierID = s.SupplierID
+where p.Price > 1000;
+
+SELECT
+    c.CustomerName,
+    o.OrderID,
+    p.ProductName,
+    od.Quantity
+FROM Customers c
+INNER JOIN Orders o
+    ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+    ON o.OrderID = od.OrderID
+INNER JOIN Products p
+    ON od.ProductID = p.ProductID
+WHERE c.CustomerName LIKE 'A%';
+
+select p.productname , s.suppliername
+from products as p
+Inner join suppliers as s
+on p.SupplierID = s.SupplierID
+where s.SupplierName Like '%Tech%';
+
+
+select p.productname , p.price , s.suppliername
+from products as p
+Inner join suppliers as s
+on p.SupplierID = s.SupplierID
+where p.Price between 500 and 3000;
+
+select c.customername , o.orderid
+from customers as c
+Inner join orders as o
+On c.CustomerID = o.CustomerID
+where c.Address = 'Delhi';
+
+
+select p.productname , ord.quantity
+from products as p
+Inner join orderdetails as ord
+on p.ProductID = ord.ProductID
+where ord.Quantity >= 5;
+
+
+select p.productname , s.suppliername
+from products as p
+inner join suppliers as s
+on p.SupplierID = s.SupplierID
+where p.Category in ('Electronics','Furniture');
+
+
+SELECT
+c.CustomerName,
+c.Address,
+o.OrderID,
+p.ProductName,
+od.Quantity
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+ON o.OrderID = od.OrderID
+INNER JOIN Products p
+ON od.ProductID = p.ProductID
+WHERE c.Address != 'Mumbai';
+
+
+SELECT
+c.CustomerName,
+p.ProductName,
+s.SupplierName,
+od.Quantity,
+p.Price
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+ON o.OrderID = od.OrderID
+INNER JOIN Products p
+ON od.ProductID = p.ProductID
+INNER JOIN Suppliers s
+ON p.SupplierID = s.SupplierID
+ORDER BY p.Price DESC
+LIMIT 5;
+
+
+SELECT
+c.CustomerName,
+SUM(od.Quantity) AS TotalQuantity
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od
+ON o.OrderID = od.OrderID
+GROUP BY c.CustomerID, c.CustomerName
+ORDER BY TotalQuantity DESC
+LIMIT 1;
+
+
+
+select productname , price 
+from products 
+ where price > (select avg(price) from products );
+ 
+ select  * from products where price = (select max(price) from products);
+ 
+ select * from products where supplierid in (select supplierid from suppliers where Address = 'Delhi')
