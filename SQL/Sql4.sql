@@ -76,3 +76,78 @@ SELECT first_name, hire_date FROM employees WHERE hire_date >= DATE_SUB(CURDATE(
 SELECT first_name, hire_date, 
 YEAR(hire_date) AS hire_year, QUARTER(hire_date) AS hire_quarter
 FROM employees;
+
+
+
+create view employee_basic as
+select first_name , last_name , department , salary from employees;
+
+select * from employee_basic;
+
+show full tables where table_type = 'VIEW';
+desc employee_basic;
+
+
+create view high_salary as select * from employees where salary > 70000;
+select * from high_salary;
+
+set sql_safe_updates = 0;
+update employee_basic set salary = 75000 where first_name = 'Neha';
+select first_name,salary from employees where first_name = 'Neha';
+
+
+create view delhi_emp as select first_name,last_name,department ,salary from employees where department = 'Sales';
+select * from delhi_emp;
+
+create view name_salary as select first_name,last_name , salary from employees;
+select * from name_salary;
+
+
+CREATE VIEW employees_after_2023 AS SELECT * FROM employees WHERE hire_date >= '2024-01-01';
+select * from employees_after_2023;
+
+
+create index idx_email on employees(email);
+show index from employees;
+
+
+create index idx_dept_salary on employees(department,salary);
+show index from employees;
+
+
+create unique index idx_emp on employees(emp_id);
+show index from employees;
+
+
+create view top_paid_it_employees as select * from employees where department = 'IT' and salary > 70000;
+select * from top_paid_it_employees;
+
+create view annual_salary_view as select emp_id , concat(first_name," ",last_name) as fullname , department , salary as monthly_salary , salary*12 as annual_salary from employees;
+select * from annual_salary_view;
+
+DROP VIEW department_salary_summary;
+
+CREATE VIEW department_salary_summary AS
+SELECT department,
+COUNT(emp_id) AS employee_count,
+AVG(salary) AS avg_salary,
+MAX(salary) AS highest_salary
+FROM employees
+GROUP BY department;select * from department_salary_summary;
+
+select * from department_salary_summary;
+
+create view avg_dept as select department , count(emp_id) , avg(salary) from employees group by department;
+select * from avg_dept;
+
+
+CREATE VIEW employee_report AS
+SELECT emp_id,CONCAT(first_name, ' ', last_name) AS full_name,department,salary,
+CASE
+WHEN salary >= 80000 THEN 'High'
+WHEN salary >= 60000 THEN 'Medium'
+ELSE 'Low'
+END AS salary_category
+FROM employees;
+
+select * from employee_report;
