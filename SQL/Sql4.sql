@@ -151,3 +151,128 @@ END AS salary_category
 FROM employees;
 
 select * from employee_report;
+
+create database CompanyDB;
+use CompanyDB;
+
+create table employees(
+emp_id INT primary key,
+emp_name varchar(50),
+department varchar(30),
+salary decimal(10,2)
+);
+
+INSERT INTO employees (emp_id, emp_name, department, salary) VALUES
+(101, 'Rahul',   'IT',    5000.00),
+(102, 'Priya',   'HR',    4500.00),
+(103, 'Amit',    'Sales', 6000.00),
+(104, 'Sneha',   'IT',    5500.00),
+(105, 'Arjun',   'HR',    7000.00),
+(106, 'Neha',    'Sales', 4800.00),
+(107, 'Vikram',  'IT',    6500.00),
+(108, 'Anjali',  'HR',    5200.00),
+(109, 'Rohit',   'Sales', 5800.00),
+(110, 'Kavita',  'IT',    6200.00);
+
+DELIMITER //
+
+CREATE PROCEDURE ShowAllEmployees()
+BEGIN
+    SELECT * FROM employees;
+END //
+
+DELIMITER ;
+
+CALL ShowAllEmployees();
+
+DELIMITER //
+CREATE PROCEDURE EmployeeDepartment
+(
+		IN dept VARCHAR(30)
+)
+BEGIN
+	SELECT * FROM employees
+    WHERE department = dept;
+END//
+DELIMITER ;
+
+CALL EmployeeDepartment('IT');
+
+
+SHOW procedure status;
+
+DROP PROCEDURE ShowAllEmployees;
+
+
+DELIMITER //
+
+CREATE PROCEDURE ShowAllEmployees()
+BEGIN
+    SELECT * FROM employees;
+END //
+
+DELIMITER ;
+
+CALL ShowAllEmployees();
+
+DELIMITER //
+CREATE procedure ShowHR()
+Begin
+	Select * from employees
+    where department = 'HR';
+end //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE EmployeeDepartment
+(
+		IN dept VARCHAR(30)
+)
+BEGIN
+	SELECT * FROM employees
+    WHERE department = dept;
+END//
+DELIMITER ;
+
+Call EmployeeDepartment('HR');
+
+DELIMITER //
+
+CREATE PROCEDURE ShowEmployeesByMinSalary(IN min_salary DECIMAL(10,2))
+BEGIN
+    SELECT *
+    FROM employees
+    WHERE salary >= min_salary;
+END //
+
+DELIMITER ;
+
+CALL ShowEmployeesByMinSalary(6000);
+
+
+DELIMITER //
+
+CREATE PROCEDURE ShowEmployees(
+    IN dept_name VARCHAR(30),
+    IN min_salary DECIMAL(10,2)
+)
+BEGIN
+    SELECT *
+    FROM employees
+    WHERE department = dept_name
+      AND salary >= min_salary;
+END //
+
+DELIMITER ; 
+
+CALL ShowEmployees('IT', 5000);
+
+SELECT *
+FROM employees
+WHERE salary > 6000;
+
+SELECT *
+FROM employees
+WHERE department = 'Finance';
+
