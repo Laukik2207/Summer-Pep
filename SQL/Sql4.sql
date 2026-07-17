@@ -275,4 +275,4 @@ WHERE salary > 6000;
 SELECT *
 FROM employees
 WHERE department = 'Finance';
-
+                         

@@ -576,5 +576,3 @@ HAVING COUNT(o.OrderID) = (
     ) AS MaxOrders
 );
 
-
-
