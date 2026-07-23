@@ -1,0 +1,1 @@
+ start = n-2 if i == 0 else n-i-1
